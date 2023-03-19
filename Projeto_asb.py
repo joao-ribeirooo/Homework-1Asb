@@ -1,14 +1,16 @@
 from Bio import Entrez
+import sys
 
 # Set up email so NCBI knows who's accesing 
-Entrez.email = 'jcrribeiro1010@gmail.com'
+Entrez.email = 'youremail@example.com'
 
-# Term and database to search the sequences
-TERM = "Psammodromus algirus[organism], cytb[gene]"
-DATABASE = 'nucleotide'
+# Term and database to search the sequences that will be inserted in the 
+DATABASE = sys.argv[1]
+TERM = sys.argv[2]
+
 
 # Define search function
-def esearch():
+def esearch(TERM,DATABASE):
     handle = Entrez.esearch(db=DATABASE, term=TERM, usehistory='y')
     results = Entrez.read(handle)
     print(results)
@@ -21,24 +23,21 @@ query_key = history['QueryKey']
 web_env = history['WebEnv']
 
 # Print of the querykey and webenv
-def history():
+def history(query_key, web_env):
     
     print(query_key, web_env)
 
 history()
 
 # Define fetch function
-def efetch(query_key, web_env):
+def efetch(query_key, web_env, DATABASE):
     handle = Entrez.efetch(db=DATABASE, rettype='fasta', query_key=query_key, WebEnv=web_env)
     sequences = handle.read()
-    print(sequences)
-
-# Open the file to write the sequences
-    with open("sequences.fasta", "w") as f:
-        f.write(sequences)
-        
+    print(sequences)        
     handle.close()
     return sequences
 
-efetch(query_key, web_env)
+efetch(query_key, web_env, DATABASE)
+
+
 
