@@ -37,3 +37,4 @@ def efetch(query_key, web_env, DATABASE):
     return sequences
 
 efetch(query_key, web_env, DATABASE)
+    
