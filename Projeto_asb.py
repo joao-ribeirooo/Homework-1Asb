@@ -16,18 +16,6 @@ def esearch(TERM,DATABASE):
     handle.close()
     return results
 
-# Get query_key and web_env
-history = esearch(TERM, DATABASE)
-query_key = history['QueryKey']
-web_env = history['WebEnv']
-
-# Print of the querykey and webenv
-def history(query_key, web_env):
-    
-    print(query_key, web_env)
-
-history(query_key, web_env)
-
 # Define fetch function
 def efetch(query_key, web_env, DATABASE):
     handle = Entrez.efetch(db=DATABASE, rettype='fasta', query_key=query_key, WebEnv=web_env)
@@ -35,6 +23,10 @@ def efetch(query_key, web_env, DATABASE):
     print(sequences)        
     handle.close()
     return sequences
-
+    
+# Get query_key and web_env
+history = esearch(TERM, DATABASE)
+query_key = history['QueryKey']
+web_env = history['WebEnv']
 efetch(query_key, web_env, DATABASE)
     
