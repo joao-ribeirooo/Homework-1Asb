@@ -4,10 +4,6 @@ import sys
 # Set up email so NCBI knows who's accesing 
 Entrez.email = 'youremail@example.com'
 
-# Term and database to search the sequences that will be inserted in the terminal
-TERM = sys.argv[1]
-DATABASE = sys.argv[2]
-
 # Define search function
 def esearch(TERM,DATABASE):
     handle = Entrez.esearch(db=DATABASE, term=TERM, usehistory='y')
@@ -23,7 +19,10 @@ def efetch(query_key, web_env, DATABASE):
     print(sequences)        
     handle.close()
     return sequences
-    
+
+# Term and database to search the sequences that will be inserted in the terminal
+TERM = sys.argv[1]
+DATABASE = sys.argv[2]
 # Get query_key and web_env
 history = esearch(TERM, DATABASE)
 query_key = history['QueryKey']
