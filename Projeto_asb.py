@@ -1,31 +1,31 @@
 from Bio import Entrez
 import sys
 
-# Set up email so NCBI knows who's accesing 
-Entrez.email = 'youremail@example.com'
+# Set up email so NCBI knows who's accessing
+Entrez.email = 'your.email.01@example.com'
 
 # Define search function
-def esearch(TERM,DATABASE):
-    handle = Entrez.esearch(db=DATABASE, term=TERM, usehistory='y')
+def esearch(termo, database):
+    handle = Entrez.esearch(db=database, term=termo, usehistory='y')
     results = Entrez.read(handle)
-    print(results)
     handle.close()
     return results
 
 # Define fetch function
-def efetch(query_key, web_env, DATABASE):
+def efetch(query_key, web_env, database):
     handle = Entrez.efetch(db=DATABASE, rettype='fasta', query_key=query_key, WebEnv=web_env)
     sequences = handle.read()
-    print(sequences)        
+    print(sequences)
     handle.close()
     return sequences
 
 # Term and database to search the sequences that will be inserted in the terminal
-TERM = sys.argv[1]
-DATABASE = sys.argv[2]
+term = sys.argv[1]
+database = sys.argv[2]
+
 # Get query_key and web_env
-history = esearch(TERM, DATABASE)
+history = esearch(term, database)
 query_key = history['QueryKey']
 web_env = history['WebEnv']
-efetch(query_key, web_env, DATABASE)
-    
+
+efetch(query_key, web_env, database)
