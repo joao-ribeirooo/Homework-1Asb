@@ -13,7 +13,7 @@ def esearch(termo, database):
 
 # Define fetch function
 def efetch(query_key, web_env, database):
-    handle = Entrez.efetch(db=DATABASE, rettype='fasta', query_key=query_key, WebEnv=web_env)
+    handle = Entrez.efetch(db=database, rettype='fasta', query_key=query_key, WebEnv=web_env)
     sequences = handle.read()
     print(sequences)
     handle.close()
